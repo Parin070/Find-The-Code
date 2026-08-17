@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#1a2332">
+  <meta name="description" content="Find The Code — Office Heist: Explore the office, solve clues, and retrieve the secret code before time runs out!">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Find The Code — Office Heist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Game Canvas -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Soft Vignette / Light Overlay -->
+  <div id="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div id="timer">00:00</div>
+    <div id="room-label">RECEPTION</div>
+    <div id="inventory-bar">
+      <span id="keycard-badge" class="inv-item locked" title="Keycard">🪪 KEYCARD</span>
+    </div>
+  </div>
+
+  <!-- Virtual Joystick -->
+  <div id="joystick" aria-label="Movement joystick">
+    <div id="joystick-ring"></div>
+    <div id="joystick-knob"></div>
+  </div>
+
+  <!-- Action Button -->
+  <button id="action-btn" type="button" aria-label="Interact with nearby object">
+    <span id="action-icon">🔍</span>
+    <span id="action-label">ACT</span>
+  </button>
+
+  <!-- Dialogue / Inspection Modal -->
+  <div id="modal-overlay" class="hidden" role="dialog" aria-modal="true">
+    <div id="modal">
+      <div id="modal-header">
+        <span id="modal-icon">📂</span>
+        <span id="modal-title">TITLE</span>
+      </div>
+      <div id="modal-text"></div>
+      
+      <!-- Input Container for Password / Code Prompts -->
+      <div id="modal-input-container" class="hidden">
+        <input type="text" id="modal-input" placeholder="ENTER CODE..." autocomplete="off" spellcheck="false">
+        <div id="modal-error" class="hidden">INVALID CODE</div>
+      </div>
+
+      <div id="modal-actions">
+        <button id="modal-submit" class="hidden" type="button">SUBMIT</button>
+        <button id="modal-close" type="button">CONTINUE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start Screen & Opening Note Overlay -->
+  <div id="start-screen">
+    <div id="start-content">
+      <div id="email-window">
+        <div id="email-header">
+          <div id="email-dots"><span></span><span></span><span></span></div>
+          <div id="email-subject">✉️ URGENT MEMO: Secret Access Code Needed</div>
+        </div>
+        <div id="email-body">
+          <p><strong>From:</strong> Executive Office &lt;ceo@corporate.net&gt;<br><strong>To:</strong> Intern / New Employee</p>
+          <hr>
+          <p>Welcome to your first day. The CEO needs a confidential file code from the vault immediately!</p>
+          <p>Explore Reception, breach the Open Office floor, and gain access to the CEO's Private Suite.</p>
+          <p class="highlight-text">⏱ Complete your mission in under 1:30 to earn a 20% discount code!</p>
+        </div>
+      </div>
+      <button id="start-btn" type="button">START MISSION</button>
+    </div>
+  </div>
+
+  <!-- End Screen -->
+  <div id="end-screen" class="hidden">
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+    <div id="end-content">
+      <div id="end-badge">🏆 MISSION COMPLETE</div>
+      <h1 id="end-title">CODE RETRIEVED!</h1>
+      <div id="end-time">TIME ELAPSED: 00:00</div>
+      <div id="end-discount-label">20% DISCOUNT UNLOCKED</div>
+      <div id="end-code">OFFICE20</div>
+      <p id="end-hint">Show this code at the event counter</p>
+      <button id="end-replay-btn" type="button">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <!-- Sound Toggle -->
+  <button id="sound-toggle" type="button" aria-label="Toggle sound">🔇</button>
+
+  <script src="game.js"></script>
+</body>
+</html>
