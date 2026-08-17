@@ -17,8 +17,8 @@ You are a newly hired intern on your first day at Corporate HQ. An urgent execut
 
 | Finish Time | Reward Unlocked |
 |---|---|
-| ≤ 1:30 | **20% Discount Code (`OFFICE20`)** |
-| > 1:30 | **10% Discount Code (`OFFICE10`)** |
+| ≤ 1:30 | **20% Discount Code** |
+| > 1:30 | **10% Discount Code** |
 
 ## Visual Style
 
@@ -31,11 +31,11 @@ You are a newly hired intern on your first day at Corporate HQ. An urgent execut
 Open `game.js` and locate these lines near the top:
 
 ```js
-const DISCOUNT_CODE_20 = 'OFFICE20';
-const DISCOUNT_CODE_10 = 'OFFICE10';
+const DISCOUNT_CODE_20 = '';
+const DISCOUNT_CODE_10 = '';
 ```
 
-Replace `'OFFICE20'` and `'OFFICE10'` with your actual promo codes.
+Replace with your actual promo codes.
 
 ## Running Locally
 
