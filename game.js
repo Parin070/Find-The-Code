@@ -27,7 +27,7 @@
     { q: "I have keys but no locks. I have space but no room. You can enter, but can't go outside. What am I?", a: "KEYBOARD" },
     { q: "I translate high-level code into machine instructions all at once before execution. What am I?", a: "COMPILER" },
     { q: "I am a First-In, First-Out (FIFO) linear data structure. What am I?", a: "QUEUE" },
-    { q: "I am a First-In, Last-Out (FILO) linear data structure. What am I?", a: "STACK" },
+    { q: "I am a Last-In, First-Out (LIFO) linear data structure. What am I?", a: "STACK" },
     { q: "I am a software glitch named after a moth found in a Harvard computer relay in 1947. What am I?", a: "BUG" },
     { q: "I am the core process of an operating system that manages memory, CPU, and hardware access. What am I?", a: "KERNEL" }
   ];
