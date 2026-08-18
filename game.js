@@ -1,5 +1,5 @@
 /* ============================================================
-   FIND THE CODE — Office Heist Redesign Engine
+   FIND THE CODE — Office Heist Engine
    Clean Professional Office Aesthetic (Pixel Art)
    ============================================================ */
 
@@ -22,49 +22,95 @@
   const DISCOUNT_CODE_20 = 'OFFICE20';
   const DISCOUNT_CODE_10 = 'OFFICE10';
 
-  // Correct Room 1 Door Code & Room 2 Riddle Solution
-  const ROOM1_DOOR_CODE = '7492';
-  const RIDDLE_SOLUTION = 'KEYBOARD';
+  // Computer Science / Tech Riddles Pool for Room 2 Target Workstation
+  const CS_QUESTIONS = [
+    { q: "I have keys but no locks. I have space but no room. You can enter, but can't go outside. What am I?", a: "KEYBOARD" },
+    { q: "I translate high-level code into machine instructions all at once before execution. What am I?", a: "COMPILER" },
+    { q: "I am a First-In, First-Out (FIFO) linear data structure. What am I?", a: "QUEUE" },
+    { q: "I am a First-In, Last-Out (FILO) linear data structure. What am I?", a: "STACK" },
+    { q: "I am a software glitch named after a moth found in a Harvard computer relay in 1947. What am I?", a: "BUG" },
+    { q: "I am the core process of an operating system that manages memory, CPU, and hardware access. What am I?", a: "KERNEL" }
+  ];
+
+  const R1_OBJECT_NAMES = {
+    r1_drawer:  'CEO Desk Drawer',
+    r1_books:   'Leather Binder Bookshelf',
+    r1_plant:   'Decorative Ficus Plant',
+    r1_cabinet: 'Filing Cabinet',
+    r1_coat:    'Suit Coat Rack',
+    r1_painting:'Corporate Landscape Art'
+  };
 
   // ============================================================
   // 2. PALETTE & COLORS (Warm/Cool Office Theme)
   // ============================================================
   const P = {
-    bg:          '#0f172a',
-    wallWood:    '#4a3319',
-    wallWoodLt:  '#6b4926',
-    wallPlaster: '#d8dce2',
-    wallPlasterD:'#b0b7c2',
-    carpetBlue:  '#2a394a',
+    bg:           '#0f172a',
+    wallWood:     '#4a3319',
+    wallWoodLt:   '#6b4926',
+    wallPlaster:  '#d8dce2',
+    wallPlasterD: '#b0b7c2',
+    carpetBlue:   '#2a394a',
     carpetBlueAlt:'#23303f',
-    carpetLine:  '#1b2633',
-    goldGlow:    '#ffc83b',
-    goldGlowDim: '#886714',
-    woodDark:    '#3a2612',
-    woodMid:     '#5c3d1e',
-    woodLight:   '#8c6033',
-    metalDark:   '#334155',
-    metalLt:     '#64748b',
-    metalBright: '#cbd5e1',
-    plantGreen:  '#15803d',
-    plantPot:    '#b45309',
-    screenBlue:  '#1e3a5f',
-    redMug:      '#dc2626',
-    white:       '#f8fafc',
-    skin:        '#e8c8a0',
-    hairIntern:  '#1e293b',
-    hairWorker:  '#854d0e',
-    hairCEO:     '#94a3b8',
-    suitCEO:     '#0f172a',
-    shirtWorker: '#2563eb',
-    shirtIntern: '#0d9488'
+    carpetLine:   '#1b2633',
+    rugRed:       '#7f1d1d',
+    rugRedLt:     '#991b1b',
+    goldGlow:     '#ffc83b',
+    goldGlowDim:  '#886714',
+    woodDark:     '#3a2612',
+    woodMid:      '#5c3d1e',
+    woodLight:    '#8c6033',
+    metalDark:    '#334155',
+    metalLt:      '#64748b',
+    metalBright:  '#cbd5e1',
+    plantGreen:   '#15803d',
+    plantPot:     '#b45309',
+    screenBlue:   '#1e3a5f',
+    redMug:       '#dc2626',
+    white:        '#f8fafc',
+    skin:         '#e8c8a0',
+    hairIntern:   '#1e293b',
+    hairWorker:   '#854d0e',
+    hairCEO:      '#94a3b8',
+    hairRecep:    '#b45309',
+    suitCEO:      '#0f172a',
+    shirtWorker:  '#2563eb',
+    shirtIntern:  '#0d9488',
+    shirtRecep:   '#7c3aed'
   };
 
   // ============================================================
-  // 3. SPRITE DEFINITIONS (Intern, Worker NPC, CEO)
+  // 3. PER-SESSION RANDOMIZATION & SESSION STATE
+  // ============================================================
+  var sessionData = {
+    doorCode: '7492',
+    keycardObjId: 'r1_drawer',
+    doorCodeObjId: 'r1_books',
+    csQuestion: CS_QUESTIONS[0]
+  };
+
+  function initSessionRandomization() {
+    // Generate random 4-digit code
+    sessionData.doorCode = Math.floor(1000 + Math.random() * 9000).toString();
+
+    // Randomize which object holds keycard vs door code note
+    var keys = Object.keys(R1_OBJECT_NAMES);
+    for (var i = keys.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = keys[i]; keys[i] = keys[j]; keys[j] = temp;
+    }
+    sessionData.keycardObjId = keys[0];
+    sessionData.doorCodeObjId = keys[1];
+
+    // Pick random CS riddle/question
+    var qIdx = Math.floor(Math.random() * CS_QUESTIONS.length);
+    sessionData.csQuestion = CS_QUESTIONS[qIdx];
+  }
+
+  // ============================================================
+  // 4. SPRITE BUILDER (Intern, Receptionist, Worker, CEO)
   // ============================================================
   function buildCharFrames(shirtCol, hairCol, pantsCol) {
-    var S = 1, H = 2, C = 3, Pn = 4, B = 5, E = 6;
     var pal = [null, P.skin, hairCol, shirtCol, pantsCol, '#0f172a', '#1e293b'];
     var rawDown = [
       [[0,0,2,2,2,2,0,0],[0,2,2,2,2,2,2,0],[0,1,1,1,1,1,1,0],[0,1,6,1,1,6,1,0],[0,1,1,1,1,1,1,0],[0,0,3,3,3,3,0,0],[0,3,3,3,3,3,3,0],[0,0,3,3,3,3,0,0],[0,0,4,4,4,4,0,0],[0,0,4,0,0,4,0,0],[0,0,4,0,0,4,0,0],[0,0,5,0,0,5,0,0]],
@@ -87,18 +133,23 @@
   }
 
   // ============================================================
-  // 4. ROOM & OBJECT DEFINITIONS
+  // 5. ROOM DEFINITIONS & LAYOUT
   // ============================================================
   var ROOMS = [
-    // --- Room 0: Reception / CEO Entry ---
+    // --- Room 0: Reception ---
     {
       name: 'RECEPTION',
-      startX: 120, startY: 150,
+      startX: 120, startY: 155,
       walls: [
         { x: 0,   y: 0,   w: ROOM_W, h: 32 },
         { x: 0,   y: 0,   w: 12,     h: ROOM_H },
         { x: 228, y: 0,   w: 12,     h: 72 },
         { x: 228, y: 112, w: 12,     h: ROOM_H - 112 },
+      ],
+      npc: { id: 'receptionist_npc', x: 120, y: 62, w: 12, h: 16, label: 'TALK TO SARAH', icon: '👩‍💼' },
+      decorDoors: [
+        { id: 'decor_door_utility', x: 0, y: 115, w: 12, h: 36, label: 'UTILITY CLOSET', icon: '🔒' },
+        { id: 'decor_door_conf', x: 32, y: 0, w: 32, h: 12, label: 'CONFERENCE ROOM', icon: '🔒' }
       ],
       objects: [
         { id: 'r1_drawer',  x: 24,  y: 38,  w: 36, h: 24, label: 'SEARCH DRAWER', icon: '🗄️' },
@@ -125,7 +176,6 @@
       ],
       npc: { id: 'worker_npc', x: 120, y: 55, w: 12, h: 16, label: 'TALK TO ALEX', icon: '💬' },
       objects: [
-        // 8 Desks placed around room
         { id: 'desk1', x: 24,  y: 40,  w: 36, h: 28, label: 'LOGIN DESK #1', icon: '💻', mug: 'blue' },
         { id: 'desk2', x: 70,  y: 40,  w: 36, h: 28, label: 'LOGIN DESK #2', icon: '💻', mug: 'white' },
         { id: 'desk3', x: 24,  y: 115, w: 36, h: 28, label: 'LOGIN DESK #3', icon: '💻', mug: 'green' },
@@ -161,10 +211,10 @@
   ];
 
   // ============================================================
-  // 5. GAME STATE
+  // 6. GAME STATE
   // ============================================================
   var GS = {
-    state: 'START', // START | PLAYING | MODAL | TRANSITION | END
+    state: 'START',
     room: 0,
     hasKeycard: false,
     foundDoorCode: false,
@@ -173,10 +223,10 @@
     timerStart: 0,
     elapsed: 0,
     finalTime: 0,
-    activePrompt: null // 'DOOR_CODE' | 'CEO_PASSWORD' | null
+    activePrompt: null
   };
 
-  var player = { x: 120, y: 150, dir: 'down', frame: 0, animT: 0 };
+  var player = { x: 120, y: 155, dir: 'down', frame: 0, animT: 0 };
   var nearbyObj = null;
   var doorCooldown = true;
   var cameraX = 0, cameraY = 0;
@@ -189,12 +239,13 @@
   var lastTs = 0;
 
   // ============================================================
-  // 6. CACHES & GRAPHICS
+  // 7. CACHES & GRAPHICS
   // ============================================================
   var roomBgCache = [];
   var playerSpriteCache = [];
   var workerSpriteCache = [];
   var ceoSpriteCache = [];
+  var recepSpriteCache = [];
   var objGlowCache = {};
 
   var canvas, ctx;
@@ -217,7 +268,7 @@
   var soundOn = false;
 
   // ============================================================
-  // 7. PRE-RENDERING ART (Pixel Art Office Theme)
+  // 8. PRE-RENDERING ART (Pixel Art Office Theme & Decor)
   // ============================================================
   function offscreen(w, h, drawFn) {
     var c = document.createElement('canvas');
@@ -242,13 +293,20 @@
       for (var x = 0; x <= ROOM_W; x += 16) c.fillRect(x, 0, 1, ROOM_H);
       for (var y = 0; y <= ROOM_H; y += 16) c.fillRect(0, y, ROOM_W, 1);
 
+      // Room 0 Non-interactable Decor: Center Rug
+      if (ri === 0) {
+        c.fillStyle = P.rugRed;
+        c.fillRect(75, 110, 90, 36);
+        c.fillStyle = P.goldGlowDim;
+        c.fillRect(75, 110, 90, 1); c.fillRect(75, 145, 90, 1);
+      }
+
       // Walls
       var room = ROOMS[ri];
       for (var i = 0; i < room.walls.length; i++) {
         var w = room.walls[i];
         c.fillStyle = ri === 2 ? P.wallWood : P.wallPlaster;
         c.fillRect(w.x, w.y, w.w, w.h);
-        // Baseboard
         c.fillStyle = P.woodDark;
         if (w.h > w.w) c.fillRect(w.x, w.y, w.w, w.h);
         else c.fillRect(w.x, w.y + w.h - 3, w.w, 3);
@@ -264,78 +322,172 @@
         c.fillRect(door.x, door.y + door.h - 2, door.w, 2);
       }
 
-      // Room specific decor
+      // Decorative Inaccessible Doors (Room 0)
+      if (ri === 0 && room.decorDoors) {
+        for (var dd = 0; dd < room.decorDoors.length; dd++) {
+          var ddoor = room.decorDoors[dd];
+          c.fillStyle = P.woodDark;
+          c.fillRect(ddoor.x, ddoor.y, ddoor.w, ddoor.h);
+          c.fillStyle = P.goldGlowDim;
+          c.fillRect(ddoor.x + 2, ddoor.y + 2, ddoor.w - 4, 1);
+        }
+      }
+
+      // Room specific non-interactable visual decor
       if (ri === 0) {
-        // Reception Counter
+        // Front Desk Counter (higher up, spacious room)
         c.fillStyle = P.woodMid;
-        c.fillRect(70, 85, 100, 16);
+        c.fillRect(70, 72, 100, 18);
         c.fillStyle = P.woodLight;
-        c.fillRect(70, 85, 100, 3);
+        c.fillRect(70, 72, 100, 3);
+        // Reception desk computer & sign pad
+        c.fillStyle = P.metalDark; c.fillRect(100, 74, 12, 8);
+        c.fillStyle = P.screenBlue; c.fillRect(101, 75, 10, 6);
+
+        // Leather Sofa (lower right)
+        c.fillStyle = P.woodDark;
+        c.fillRect(175, 140, 40, 20);
+        c.fillStyle = P.woodMid;
+        c.fillRect(177, 142, 36, 16);
+        c.fillStyle = P.woodLight;
+        c.fillRect(177, 142, 17, 16); c.fillRect(196, 142, 17, 16);
+
+        // Wall Clock above reception desk
+        c.fillStyle = P.white;
+        c.beginPath(); c.arc(120, 14, 5, 0, Math.PI * 2); c.fill();
+        c.fillStyle = P.metalDark;
+        c.fillRect(120, 12, 1, 3); c.fillRect(120, 14, 3, 1);
+
+        // Potted Plant (left corner)
+        c.fillStyle = P.plantPot; c.fillRect(16, 85, 10, 10);
+        c.fillStyle = P.plantGreen;
+        c.beginPath(); c.arc(21, 80, 7, 0, Math.PI * 2); c.fill();
+
       } else if (ri === 1) {
-        // Office partition lines
+        // Partition lines
         c.fillStyle = P.metalLt;
         c.fillRect(118, 32, 4, 120);
       } else if (ri === 2) {
         // Executive Rug
-        c.fillStyle = '#7f1d1d';
+        c.fillStyle = P.rugRed;
         c.fillRect(60, 60, 120, 80);
-        c.fillStyle = P.goldGlow;
+        c.fillStyle = P.goldGlowDim;
         c.fillRect(62, 62, 116, 2); c.fillRect(62, 136, 116, 2);
       }
     });
   }
 
-  // Draw procedural interactive objects with soft warm glow
+  // --- Detailed Interactable Object Drawing ---
   function drawObjDrawer(c, w, h) {
     c.fillStyle = P.woodMid; c.fillRect(0, 0, w, h);
     c.fillStyle = P.woodLight; c.fillRect(0, 0, w, 2);
-    c.fillStyle = P.metalBright; c.fillRect(w/2 - 4, h/2 - 1, 8, 2);
+    // Drawer handles & panel lines
+    c.fillStyle = P.woodDark; c.fillRect(2, 6, w - 4, 1); c.fillRect(2, 14, w - 4, 1);
+    c.fillStyle = P.metalBright; c.fillRect(w/2 - 4, 9, 8, 2); c.fillRect(w/2 - 4, 17, 8, 2);
+    // Desk lamp & paper stack on top
+    c.fillStyle = P.white; c.fillRect(4, 2, 6, 4);
+    c.fillStyle = P.goldGlow; c.fillRect(w - 8, 2, 4, 3);
   }
 
   function drawObjBooks(c, w, h) {
     c.fillStyle = P.woodDark; c.fillRect(0, 0, w, h);
-    var cols = ['#991b1b', '#1e3a8a', '#166534', '#d97706'];
-    for (var i = 0; i < 5; i++) {
-      c.fillStyle = cols[i % cols.length];
-      c.fillRect(4 + i * 6, 6, 4, h - 12);
+    c.fillStyle = P.woodMid; c.fillRect(2, 2, w - 4, h - 4);
+    // Detailed book spines
+    var cols = ['#991b1b', '#1e3a8a', '#166534', '#d97706', '#7c3aed', '#0284c7'];
+    for (var shelf = 0; shelf < 2; shelf++) {
+      var sy = 4 + shelf * 18;
+      c.fillStyle = P.woodDark; c.fillRect(2, sy + 14, w - 4, 2);
+      for (var i = 0; i < 6; i++) {
+        c.fillStyle = cols[(shelf * 3 + i) % cols.length];
+        c.fillRect(4 + i * 5, sy, 4, 13);
+        c.fillStyle = P.goldGlowDim; c.fillRect(5 + i * 5, sy + 3, 2, 2); // spine gold title
+      }
     }
   }
 
   function drawObjPlant(c, w, h) {
-    c.fillStyle = P.plantPot; c.fillRect(w/2 - 6, h - 10, 12, 10);
+    c.fillStyle = P.plantPot; c.fillRect(w/2 - 7, h - 12, 14, 12);
+    c.fillStyle = P.woodDark; c.fillRect(w/2 - 6, h - 12, 12, 2);
     c.fillStyle = P.plantGreen;
-    c.beginPath(); c.arc(w/2, h/2 - 4, 10, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(w/2, h/2 - 4, 11, 0, Math.PI * 2); c.fill();
+    c.fillStyle = '#22c55e'; // leaf highlights
+    c.beginPath(); c.arc(w/2 - 3, h/2 - 6, 5, 0, Math.PI * 2); c.fill();
   }
 
   function drawObjCabinet(c, w, h) {
     c.fillStyle = P.metalDark; c.fillRect(0, 0, w, h);
     c.fillStyle = P.metalLt; c.fillRect(2, 2, w - 4, h - 4);
-    c.fillStyle = P.metalBright; c.fillRect(w/2 - 3, 10, 6, 2); c.fillRect(w/2 - 3, 26, 6, 2);
+    // 3 Filing Drawers with labels & handles
+    for (var d = 0; d < 3; d++) {
+      var dy = 4 + d * 11;
+      c.fillStyle = P.metalDark; c.fillRect(4, dy, w - 8, 10);
+      c.fillStyle = P.white; c.fillRect(6, dy + 3, 5, 4); // label card
+      c.fillStyle = P.metalBright; c.fillRect(w - 12, dy + 4, 6, 2); // handle
+    }
   }
 
   function drawObjCoat(c, w, h) {
+    // Wooden coat rack stand
     c.fillStyle = P.woodDark; c.fillRect(w/2 - 1, 0, 2, h);
-    c.fillStyle = '#334155'; c.fillRect(w/2 - 6, 8, 12, 18);
+    c.fillRect(w/2 - 6, h - 3, 12, 3);
+    // Trench coat / suit jacket on hanger
+    c.fillStyle = '#334155'; c.fillRect(w/2 - 7, 8, 14, 20);
+    c.fillStyle = '#1e293b'; c.fillRect(w/2 - 5, 10, 10, 18);
+    c.fillStyle = P.white; c.fillRect(w/2 - 2, 10, 4, 4); // shirt collar
   }
 
   function drawObjPainting(c, w, h) {
     c.fillStyle = P.woodLight; c.fillRect(0, 0, w, h);
-    c.fillStyle = P.screenBlue; c.fillRect(3, 3, w - 6, h - 6);
-    c.fillStyle = P.white; c.fillRect(8, 8, 8, 6);
+    c.fillStyle = P.woodDark; c.fillRect(2, 2, w - 4, h - 4);
+    c.fillStyle = P.screenBlue; c.fillRect(4, 4, w - 8, h - 8);
+    // Detailed artwork canvas
+    c.fillStyle = P.goldGlow; c.beginPath(); c.arc(12, 12, 4, 0, Math.PI * 2); c.fill();
+    c.fillStyle = P.plantGreen; c.fillRect(6, 18, w - 12, 4);
   }
 
-  function drawObjDesk(c, w, h, mugCol) {
+  function drawObjDesk(c, w, h, deskIndex, mugCol) {
     c.fillStyle = P.woodMid; c.fillRect(0, 0, w, h);
     c.fillStyle = P.woodLight; c.fillRect(0, 0, w, 2);
-    // Monitor
-    c.fillStyle = P.metalDark; c.fillRect(8, 4, 20, 14);
-    c.fillStyle = P.screenBlue; c.fillRect(10, 6, 16, 10);
-    // Keyboard
-    c.fillStyle = P.metalLt; c.fillRect(10, 20, 16, 4);
-    // Mug
+
+    // Varied Monitor Angles & Clutter per Desk
+    c.fillStyle = P.metalDark;
+    if (deskIndex % 2 === 0) {
+      c.fillRect(4, 3, 14, 12); c.fillRect(20, 3, 14, 12);
+      c.fillStyle = P.screenBlue;
+      c.fillRect(5, 5, 12, 8); c.fillRect(21, 5, 12, 8);
+    } else {
+      c.fillRect(8, 4, 20, 13);
+      c.fillStyle = P.screenBlue;
+      c.fillRect(10, 6, 16, 9);
+    }
+
+    c.fillStyle = P.metalLt; c.fillRect(10, 18, 14, 4);
+    c.fillStyle = P.white; c.fillRect(26, 19, 2, 3);
+
+    // Desk specific clutter
+    if (deskIndex === 0) {
+      c.fillStyle = P.white; c.fillRect(2, 6, 5, 6);
+    } else if (deskIndex === 1) {
+      c.fillStyle = '#ef4444'; c.fillRect(2, 8, 4, 4);
+    } else if (deskIndex === 2) {
+      c.fillStyle = P.plantPot; c.fillRect(2, 14, 4, 4);
+      c.fillStyle = P.plantGreen; c.fillRect(2, 11, 4, 3);
+    } else if (deskIndex === 3) {
+      c.fillStyle = P.metalLt; c.fillRect(2, 8, 6, 5);
+    } else if (deskIndex === 4) {
+      c.fillStyle = '#2563eb'; c.fillRect(2, 6, 5, 6);
+    } else if (deskIndex === 5) { // Target Desk #6
+      c.fillStyle = P.white; c.fillRect(2, 6, 5, 6);
+    } else if (deskIndex === 6) {
+      c.fillStyle = '#f59e0b'; c.fillRect(2, 8, 4, 4);
+    } else if (deskIndex === 7) {
+      c.fillStyle = '#3b82f6'; c.fillRect(2, 6, 3, 6);
+    }
+
+    // Coffee Mug
     var mugColors = { red: P.redMug, blue: '#2563eb', white: '#f8fafc', green: '#166534', yellow: '#d97706', black: '#0f172a', purple: '#7c3aed', orange: '#ea580c' };
     c.fillStyle = mugColors[mugCol] || P.metalBright;
-    c.fillRect(w - 8, 12, 4, 5);
+    c.fillRect(w - 7, 12, 4, 5);
   }
 
   function drawObjVault(c, w, h) {
@@ -351,26 +503,21 @@
   };
 
   function prerenderObj(obj) {
-    var pad = 8;
-    return offscreen(obj.w + pad * 2, obj.h + pad * 2, function (c) {
-      c.shadowColor = P.goldGlow;
-      c.shadowBlur = 6;
-      c.save();
-      c.translate(pad, pad);
+    return offscreen(obj.w, obj.h, function (c) {
       if (obj.id.startsWith('desk')) {
-        drawObjDesk(c, obj.w, obj.h, obj.mug);
+        var dIdx = parseInt(obj.id.replace('desk', ''), 10) - 1;
+        drawObjDesk(c, obj.w, obj.h, dIdx, obj.mug);
       } else if (OBJ_DRAWS[obj.id]) {
         OBJ_DRAWS[obj.id](c, obj.w, obj.h);
       }
-      c.restore();
-      c.shadowBlur = 0;
     });
   }
 
   function prerenderAll() {
     playerSpriteCache = buildCharFrames(P.shirtIntern, P.hairIntern, '#1e293b');
     workerSpriteCache = buildCharFrames(P.shirtWorker, P.hairWorker, '#334155');
-    ceoSpriteCache = buildCharFrames(P.suitCEO, P.hairCEO, '#0f172a');
+    ceoSpriteCache    = buildCharFrames(P.suitCEO, P.hairCEO, '#0f172a');
+    recepSpriteCache  = buildCharFrames(P.shirtRecep, P.hairRecep, '#475569');
 
     for (var ri = 0; ri < ROOMS.length; ri++) {
       roomBgCache.push(prerenderRoomBg(ri));
@@ -383,7 +530,7 @@
   }
 
   // ============================================================
-  // 8. AUDIO & SOUND FX
+  // 9. AUDIO & SOUND FX
   // ============================================================
   function initAudio() {
     try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
@@ -413,7 +560,7 @@
   }
 
   // ============================================================
-  // 9. CONFETTI SYSTEM
+  // 10. CONFETTI SYSTEM
   // ============================================================
   var particles = [];
   function spawnConfetti() {
@@ -454,7 +601,7 @@
   }
 
   // ============================================================
-  // 10. RESIZE & INPUT
+  // 11. RESIZE & INPUT
   // ============================================================
   function resize() {
     var w = window.innerWidth;
@@ -556,7 +703,7 @@
   }
 
   // ============================================================
-  // 11. GAME LOGIC & STORY FLOW
+  // 12. GAME LOGIC & STORY FLOW
   // ============================================================
   function startGame() {
     GS.state = 'PLAYING';
@@ -573,38 +720,58 @@
     $modalInput.value = '';
     GS.activePrompt = null;
 
-    // --- Room 1 Objects ---
-    if (obj.id === 'r1_drawer') {
-      if (!GS.hasKeycard) {
-        GS.hasKeycard = true;
-        $keycardBadge.classList.remove('locked');
-        $keycardBadge.classList.add('unlocked');
-        showModal('KEYCARD FOUND!', 'You searched the CEO\'s desk drawer and retrieved the Executive Keycard! This will unlock the CEO Private Suite.', '🪪');
-        playSound('item');
-      } else {
-        showModal('DESK DRAWER', 'Empty drawer. You already retrieved the Executive Keycard.', '🗄️');
-        playSound('interact');
-      }
-    } else if (obj.id === 'r1_books') {
-      if (!GS.foundDoorCode) {
-        GS.foundDoorCode = true;
-        showModal('BOOKSHELF NOTE', 'Tucked inside a leather binder, you find a handwritten note:\n\n"Open Office Door Code: ' + ROOM1_DOOR_CODE + '"', '📜');
-        playSound('item');
-      } else {
-        showModal('BOOKSHELF', 'Row of corporate binders. You already noted down the door code (' + ROOM1_DOOR_CODE + ').', '📚');
-        playSound('interact');
-      }
-    } else if (obj.id === 'r1_plant') {
-      showModal('PLANT POT', 'A lush artificial ficus plant. Just soil and decorative stones.', '🪴'); playSound('interact');
-    } else if (obj.id === 'r1_cabinet') {
-      showModal('FILING CABINET', 'Old client files and invoices. Nothing related to the secret file code.', '📁'); playSound('interact');
-    } else if (obj.id === 'r1_coat') {
-      showModal('COAT RACK', 'A sharp suit jacket hanging on the rack. Checkbook and mints in the pocket.', '🧥'); playSound('interact');
-    } else if (obj.id === 'r1_painting') {
-      showModal('WALL PAINTING', 'A landscape painting of the corporate headquarters. Nothing behind the frame.', '🖼️'); playSound('interact');
+    // --- Receptionist NPC ---
+    if (obj.id === 'receptionist_npc') {
+      showModal('SARAH (RECEPTIONIST)', '"Welcome to Corporate HQ! The CEO is expecting someone reliable today... Good luck with your first assignment, new hire!"', '👩‍💼');
+      playSound('interact');
+    }
+    // --- Decor Doors ---
+    else if (obj.id === 'decor_door_utility') {
+      showModal('UTILITY CLOSET', 'Door is locked. Storage supplies and electrical panels only.', '🔒'); playSound('interact');
+    } else if (obj.id === 'decor_door_conf') {
+      showModal('CONFERENCE ROOM A', 'Door is locked. Scheduled for an executive presentation later today.', '🔒'); playSound('interact');
     }
 
-    // --- Room 1 Door Prompt ---
+    // --- Room 1 Randomized Interactable Objects ---
+    else if (obj.id.startsWith('r1_')) {
+      var objName = R1_OBJECT_NAMES[obj.id] || 'Object';
+
+      if (obj.id === sessionData.keycardObjId) {
+        if (!GS.hasKeycard) {
+          GS.hasKeycard = true;
+          $keycardBadge.classList.remove('locked');
+          $keycardBadge.classList.add('unlocked');
+          showModal('KEYCARD FOUND!', 'You thoroughly searched the ' + objName + ' and retrieved the Executive Keycard! This will unlock the CEO Private Suite.', '🪪');
+          playSound('item');
+        } else {
+          showModal(objName.toUpperCase(), 'You already retrieved the Executive Keycard from here.', obj.icon || '🔍');
+          playSound('interact');
+        }
+      } else if (obj.id === sessionData.doorCodeObjId) {
+        if (!GS.foundDoorCode) {
+          GS.foundDoorCode = true;
+          showModal('SECRET NOTE FOUND!', 'Hidden inside the ' + objName + ', you find a handwritten memo:\n\n"Open Office Door Code: ' + sessionData.doorCode + '"', '📜');
+          playSound('item');
+        } else {
+          showModal(objName.toUpperCase(), 'You already noted down the door code (' + sessionData.doorCode + ').', obj.icon || '🔍');
+          playSound('interact');
+        }
+      } else {
+        // Flavor responses for empty objects
+        var flavors = {
+          r1_drawer: 'Old paperclips, sticky notes, and corporate pens. Nothing useful.',
+          r1_books: 'Annual financial reports from 2023. Boring spreadsheets.',
+          r1_plant: 'Just decorative soil and faux leaves. Clean and dust-free.',
+          r1_cabinet: 'Archived tax filings and receipts. Nothing related to access codes.',
+          r1_coat: 'A designer suit jacket. Pockets only contain throat lozenges.',
+          r1_painting: 'A framed landscape of corporate headquarters. Frame is firmly mounted.'
+        };
+        showModal(objName.toUpperCase(), flavors[obj.id] || 'Nothing special found here.', obj.icon || '🔍');
+        playSound('interact');
+      }
+    }
+
+    // --- Room 1 Exit Door Prompt ---
     else if (obj.id === 'door_r1') {
       if (GS.door1Unlocked) {
         startTransition(ROOMS[0].doors[0]);
@@ -619,19 +786,25 @@
 
     // --- Room 2 NPC & Desks ---
     else if (obj.id === 'worker_npc') {
-      showModal('ALEX (OFFICE WORKER)', '"Looking for the target computer? Check Desk #6 on the right side — it\'s the desk with the RED MUG!"', '💬');
+      showModal('ALEX (OFFICE WORKER)', '"Looking for the target workstation? Check the desk that has a RED MUG sitting on it!"', '💬');
       playSound('interact');
     } else if (obj.id.startsWith('desk')) {
       if (obj.isTarget) {
         GS.riddleRevealed = true;
-        showModal('CONFIDENTIAL FILE', 'LOGGED IN TO TARGET COMPUTER!\n\nYou open file "SECRET_RIDDLE.TXT":\n\n"I have keys but no locks. I have space but no room. You can enter, but can\'t go outside. What am I?"', '💻');
+        showModal('CONFIDENTIAL FILE', 'LOGGED IN TO TARGET WORKSTATION!\n\nYou open "CONFIDENTIAL_RIDDLE.TXT":\n\n"' + sessionData.csQuestion.q + '"', '💻');
         playSound('item');
       } else {
-        showModal('OFFICE COMPUTER', 'Access Denied: Wrong desk workstation. Belongs to someone else.', '🖥️');
+        showModal('OFFICE COMPUTER', 'Access Denied: Workstation belongs to someone else.', '🖥️');
         playSound('interact');
       }
+    }
+
+    // --- Room 2 Back & Next Doors ---
+    else if (obj.id === 'door_r2_back') {
+      startTransition(ROOMS[1].doors[0]);
     } else if (obj.id === 'door_r2_next') {
-      if (GS.hasKeycard) {
+      if (GS.door2Unlocked || GS.hasKeycard) {
+        GS.door2Unlocked = true;
         startTransition(ROOMS[1].doors[1]);
       } else {
         showModal('KEYCARD REQUIRED', 'Access Denied! You need the Executive Keycard from Room 1 to enter the CEO Private Suite.', '🚫');
@@ -639,10 +812,12 @@
       }
     }
 
-    // --- Room 3 CEO & Vault ---
-    else if (obj.id === 'ceo_npc') {
+    // --- Room 3 Back Door & CEO / Vault ---
+    else if (obj.id === 'door_r3_back') {
+      startTransition(ROOMS[2].doors[0]);
+    } else if (obj.id === 'ceo_npc') {
       GS.activePrompt = 'CEO_PASSWORD';
-      showModal('CEO CHIEF EXECUTIVE', '"Welcome, Intern! State the answer to the computer riddle as the Security Password to unlock the Vault Locker:"', '👔');
+      showModal('CEO CHIEF EXECUTIVE', '"Welcome, Intern! State the answer to the workstation riddle as the Security Password to unlock the Vault Locker:"', '👔');
       $modalInputContainer.classList.remove('hidden');
       $modalSubmit.classList.remove('hidden');
       playSound('interact');
@@ -659,7 +834,7 @@
     var inputVal = $modalInput.value.trim().toUpperCase();
 
     if (GS.activePrompt === 'DOOR_CODE') {
-      if (inputVal === ROOM1_DOOR_CODE) {
+      if (inputVal === sessionData.doorCode) {
         GS.door1Unlocked = true;
         closeModal();
         startTransition(ROOMS[0].doors[0]);
@@ -669,7 +844,7 @@
         playSound('error');
       }
     } else if (GS.activePrompt === 'CEO_PASSWORD') {
-      if (inputVal === RIDDLE_SOLUTION) {
+      if (inputVal === sessionData.csQuestion.a.toUpperCase()) {
         closeModal();
         finishGame();
       } else {
@@ -736,7 +911,7 @@
   }
 
   // ============================================================
-  // 12. UPDATE & COLLISION
+  // 13. UPDATE & COLLISION
   // ============================================================
   function collides(px, py) {
     var room = ROOMS[GS.room];
@@ -809,6 +984,14 @@
         minD = dd;
       }
     }
+    // Check decor doors
+    if (room.decorDoors) {
+      for (var d2 = 0; d2 < room.decorDoors.length; d2++) {
+        var ddr = room.decorDoors[d2];
+        var ddd = Math.sqrt(Math.pow(player.x - (ddr.x + ddr.w / 2), 2) + Math.pow(player.y - (ddr.y + ddr.h / 2), 2));
+        if (ddd < INTERACT_RANGE && ddd < minD) { nearbyObj = ddr; minD = ddd; }
+      }
+    }
     // Check NPCs
     if (room.npc) {
       var nd = Math.sqrt(Math.pow(player.x - room.npc.x, 2) + Math.pow(player.y - room.npc.y, 2));
@@ -833,7 +1016,7 @@
   }
 
   // ============================================================
-  // 13. RENDERING
+  // 14. RENDERING
   // ============================================================
   function render() {
     ctx.imageSmoothingEnabled = false;
@@ -860,27 +1043,42 @@
     var ox = -cameraX * ps;
     var oy = -cameraY * ps;
 
-    // Room Background
+    // Room Background & Decor
     var bgc = roomBgCache[GS.room];
     if (bgc) ctx.drawImage(bgc, Math.round(ox), Math.round(oy), ROOM_W * ps, ROOM_H * ps);
 
-    // Objects with soft warm pulse glow
+    // Objects: Solid sprites + faint pulsing border outline
     var room = ROOMS[GS.room];
-    var glowAlpha = 0.7 + 0.3 * Math.sin(glowT);
+    var borderAlpha = 0.35 + 0.25 * Math.sin(glowT);
 
     for (var i = 0; i < room.objects.length; i++) {
       var obj = room.objects[i];
       var gc = objGlowCache[obj.id];
       if (!gc) continue;
-      var pad = 8;
-      ctx.globalAlpha = (nearbyObj === obj) ? 1 : glowAlpha;
-      ctx.drawImage(gc, Math.round((obj.x - pad) * ps + ox), Math.round((obj.y - pad) * ps + oy), gc.width * ps, gc.height * ps);
-      ctx.globalAlpha = 1;
+
+      var sx = Math.round(obj.x * ps + ox);
+      var sy = Math.round(obj.y * ps + oy);
+      var sw = obj.w * ps;
+      var sh = obj.h * ps;
+
+      // 1. Draw solid object sprite (no internal blur/opacity distortion)
+      ctx.drawImage(gc, sx, sy, sw, sh);
+
+      // 2. Draw faint outer glowing border outline around interactable boundary
+      ctx.save();
+      ctx.strokeStyle = P.goldGlow;
+      ctx.lineWidth = Math.max(1, Math.floor(ps / 2));
+      ctx.globalAlpha = (nearbyObj === obj) ? 0.95 : borderAlpha;
+      ctx.strokeRect(sx - 1, sy - 1, sw + 2, sh + 2);
+      ctx.restore();
     }
 
-    // Draw Worker / CEO NPCs
-    if (room.npc && workerSpriteCache[0]) {
-      ctx.drawImage(workerSpriteCache[0], Math.round((room.npc.x - 4) * ps + ox), Math.round((room.npc.y - 12) * ps + oy), SPRITE_W * ps, SPRITE_H * ps);
+    // Draw Receptionist / Worker / CEO NPCs
+    if (room.npc) {
+      var npcSprite = (room.npc.id === 'receptionist_npc') ? recepSpriteCache[0] : workerSpriteCache[0];
+      if (npcSprite) {
+        ctx.drawImage(npcSprite, Math.round((room.npc.x - 4) * ps + ox), Math.round((room.npc.y - 12) * ps + oy), SPRITE_W * ps, SPRITE_H * ps);
+      }
     }
     if (room.ceo && ceoSpriteCache[0]) {
       ctx.drawImage(ceoSpriteCache[0], Math.round((room.ceo.x - 4) * ps + ox), Math.round((room.ceo.y - 12) * ps + oy), SPRITE_W * ps, SPRITE_H * ps);
@@ -903,7 +1101,7 @@
   }
 
   // ============================================================
-  // 14. MAIN LOOP & INIT
+  // 15. MAIN LOOP & INIT
   // ============================================================
   function gameLoop(ts) {
     var dt = Math.min((ts - lastTs) / 1000, 0.1);
@@ -915,41 +1113,42 @@
   }
 
   function init() {
-    canvas       = document.getElementById('game-canvas');
-    ctx          = canvas.getContext('2d');
-    $timer       = document.getElementById('timer');
-    $roomLabel   = document.getElementById('room-label');
+    canvas        = document.getElementById('game-canvas');
+    ctx           = canvas.getContext('2d');
+    $timer        = document.getElementById('timer');
+    $roomLabel    = document.getElementById('room-label');
     $keycardBadge = document.getElementById('keycard-badge');
-    $actionBtn   = document.getElementById('action-btn');
-    $actionLabel = document.getElementById('action-label');
-    $actionIcon  = document.getElementById('action-icon');
-    $joystick    = document.getElementById('joystick');
-    $joyKnob     = document.getElementById('joystick-knob');
+    $actionBtn    = document.getElementById('action-btn');
+    $actionLabel  = document.getElementById('action-label');
+    $actionIcon   = document.getElementById('action-icon');
+    $joystick     = document.getElementById('joystick');
+    $joyKnob      = document.getElementById('joystick-knob');
     $modalOverlay = document.getElementById('modal-overlay');
-    $modalTitle  = document.getElementById('modal-title');
-    $modalText   = document.getElementById('modal-text');
-    $modalIcon   = document.getElementById('modal-icon');
-    $modalClose  = document.getElementById('modal-close');
-    $modalSubmit = document.getElementById('modal-submit');
-    $modalInput  = document.getElementById('modal-input');
+    $modalTitle   = document.getElementById('modal-title');
+    $modalText    = document.getElementById('modal-text');
+    $modalIcon    = document.getElementById('modal-icon');
+    $modalClose   = document.getElementById('modal-close');
+    $modalSubmit  = document.getElementById('modal-submit');
+    $modalInput   = document.getElementById('modal-input');
     $modalInputContainer = document.getElementById('modal-input-container');
-    $modalError  = document.getElementById('modal-error');
-    $startScreen = document.getElementById('start-screen');
-    $startBtn    = document.getElementById('start-btn');
-    $endScreen   = document.getElementById('end-screen');
-    $endTitle    = document.getElementById('end-title');
-    $endTime     = document.getElementById('end-time');
-    $endDiscount = document.getElementById('end-discount-label');
-    $endCode     = document.getElementById('end-code');
-    $endReplay   = document.getElementById('end-replay-btn');
-    $confetti    = document.getElementById('confetti-canvas');
-    cctx         = $confetti.getContext('2d');
-    $soundToggle = document.getElementById('sound-toggle');
+    $modalError   = document.getElementById('modal-error');
+    $startScreen  = document.getElementById('start-screen');
+    $startBtn     = document.getElementById('start-btn');
+    $endScreen    = document.getElementById('end-screen');
+    $endTitle     = document.getElementById('end-title');
+    $endTime      = document.getElementById('end-time');
+    $endDiscount  = document.getElementById('end-discount-label');
+    $endCode      = document.getElementById('end-code');
+    $endReplay    = document.getElementById('end-replay-btn');
+    $confetti     = document.getElementById('confetti-canvas');
+    cctx          = $confetti.getContext('2d');
+    $soundToggle  = document.getElementById('sound-toggle');
 
     window.addEventListener('resize', resize);
     window.addEventListener('orientationchange', function () { setTimeout(resize, 150); });
     resize();
 
+    initSessionRandomization();
     prerenderAll();
     setupInput();
 
