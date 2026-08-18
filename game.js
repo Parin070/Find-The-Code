@@ -19,8 +19,8 @@
   const MAX_CONFETTI = 40;
 
   // Placeholder Discount Codes (easily editable)
-  const DISCOUNT_CODE_20 = 'OFFICE20';
-  const DISCOUNT_CODE_10 = 'OFFICE10';
+  const DISCOUNT_CODE_20 = 'AIWILLTAKEOVER20';
+  const DISCOUNT_CODE_10 = 'AIWILLTAKEOVER10';
 
   // Computer Science / Tech Riddles Pool for Room 2 Target Workstation
   const CS_QUESTIONS = [
@@ -33,50 +33,50 @@
   ];
 
   const R1_OBJECT_NAMES = {
-    r1_drawer:  'CEO Desk Drawer',
-    r1_books:   'Leather Binder Bookshelf',
-    r1_plant:   'Decorative Ficus Plant',
+    r1_drawer: 'CEO Desk Drawer',
+    r1_books: 'Leather Binder Bookshelf',
+    r1_plant: 'Decorative Ficus Plant',
     r1_cabinet: 'Filing Cabinet',
-    r1_coat:    'Suit Coat Rack',
-    r1_painting:'Corporate Landscape Art'
+    r1_coat: 'Suit Coat Rack',
+    r1_painting: 'Corporate Landscape Art'
   };
 
   // ============================================================
   // 2. PALETTE & COLORS (Warm/Cool Office Theme)
   // ============================================================
   const P = {
-    bg:           '#0f172a',
-    wallWood:     '#4a3319',
-    wallWoodLt:   '#6b4926',
-    wallPlaster:  '#d8dce2',
+    bg: '#0f172a',
+    wallWood: '#4a3319',
+    wallWoodLt: '#6b4926',
+    wallPlaster: '#d8dce2',
     wallPlasterD: '#b0b7c2',
-    carpetBlue:   '#2a394a',
-    carpetBlueAlt:'#23303f',
-    carpetLine:   '#1b2633',
-    rugRed:       '#7f1d1d',
-    rugRedLt:     '#991b1b',
-    goldGlow:     '#ffc83b',
-    goldGlowDim:  '#886714',
-    woodDark:     '#3a2612',
-    woodMid:      '#5c3d1e',
-    woodLight:    '#8c6033',
-    metalDark:    '#334155',
-    metalLt:      '#64748b',
-    metalBright:  '#cbd5e1',
-    plantGreen:   '#15803d',
-    plantPot:     '#b45309',
-    screenBlue:   '#1e3a5f',
-    redMug:       '#dc2626',
-    white:        '#f8fafc',
-    skin:         '#e8c8a0',
-    hairIntern:   '#1e293b',
-    hairWorker:   '#854d0e',
-    hairCEO:      '#94a3b8',
-    hairRecep:    '#b45309',
-    suitCEO:      '#0f172a',
-    shirtWorker:  '#2563eb',
-    shirtIntern:  '#0d9488',
-    shirtRecep:   '#7c3aed'
+    carpetBlue: '#2a394a',
+    carpetBlueAlt: '#23303f',
+    carpetLine: '#1b2633',
+    rugRed: '#7f1d1d',
+    rugRedLt: '#991b1b',
+    goldGlow: '#ffc83b',
+    goldGlowDim: '#886714',
+    woodDark: '#3a2612',
+    woodMid: '#5c3d1e',
+    woodLight: '#8c6033',
+    metalDark: '#334155',
+    metalLt: '#64748b',
+    metalBright: '#cbd5e1',
+    plantGreen: '#15803d',
+    plantPot: '#b45309',
+    screenBlue: '#1e3a5f',
+    redMug: '#dc2626',
+    white: '#f8fafc',
+    skin: '#e8c8a0',
+    hairIntern: '#1e293b',
+    hairWorker: '#854d0e',
+    hairCEO: '#94a3b8',
+    hairRecep: '#b45309',
+    suitCEO: '#0f172a',
+    shirtWorker: '#2563eb',
+    shirtIntern: '#0d9488',
+    shirtRecep: '#7c3aed'
   };
 
   // ============================================================
@@ -113,12 +113,12 @@
   function buildCharFrames(shirtCol, hairCol, pantsCol) {
     var pal = [null, P.skin, hairCol, shirtCol, pantsCol, '#0f172a', '#1e293b'];
     var rawDown = [
-      [[0,0,2,2,2,2,0,0],[0,2,2,2,2,2,2,0],[0,1,1,1,1,1,1,0],[0,1,6,1,1,6,1,0],[0,1,1,1,1,1,1,0],[0,0,3,3,3,3,0,0],[0,3,3,3,3,3,3,0],[0,0,3,3,3,3,0,0],[0,0,4,4,4,4,0,0],[0,0,4,0,0,4,0,0],[0,0,4,0,0,4,0,0],[0,0,5,0,0,5,0,0]],
-      [[0,0,2,2,2,2,0,0],[0,2,2,2,2,2,2,0],[0,1,1,1,1,1,1,0],[0,1,6,1,1,6,1,0],[0,1,1,1,1,1,1,0],[0,0,3,3,3,3,0,0],[0,3,3,3,3,3,3,0],[0,0,3,3,3,3,0,0],[0,0,4,4,4,4,0,0],[0,4,4,0,0,0,0,0],[0,4,0,0,0,4,0,0],[0,5,0,0,0,5,0,0]],
-      [[0,0,2,2,2,2,0,0],[0,2,2,2,2,2,2,0],[0,1,1,1,1,1,1,0],[0,1,6,1,1,6,1,0],[0,1,1,1,1,1,1,0],[0,0,3,3,3,3,0,0],[0,3,3,3,3,3,3,0],[0,0,3,3,3,3,0,0],[0,0,4,4,4,4,0,0],[0,0,0,0,4,4,0,0],[0,4,0,0,0,4,0,0],[0,5,0,0,0,5,0,0]],
+      [[0, 0, 2, 2, 2, 2, 0, 0], [0, 2, 2, 2, 2, 2, 2, 0], [0, 1, 1, 1, 1, 1, 1, 0], [0, 1, 6, 1, 1, 6, 1, 0], [0, 1, 1, 1, 1, 1, 1, 0], [0, 0, 3, 3, 3, 3, 0, 0], [0, 3, 3, 3, 3, 3, 3, 0], [0, 0, 3, 3, 3, 3, 0, 0], [0, 0, 4, 4, 4, 4, 0, 0], [0, 0, 4, 0, 0, 4, 0, 0], [0, 0, 4, 0, 0, 4, 0, 0], [0, 0, 5, 0, 0, 5, 0, 0]],
+      [[0, 0, 2, 2, 2, 2, 0, 0], [0, 2, 2, 2, 2, 2, 2, 0], [0, 1, 1, 1, 1, 1, 1, 0], [0, 1, 6, 1, 1, 6, 1, 0], [0, 1, 1, 1, 1, 1, 1, 0], [0, 0, 3, 3, 3, 3, 0, 0], [0, 3, 3, 3, 3, 3, 3, 0], [0, 0, 3, 3, 3, 3, 0, 0], [0, 0, 4, 4, 4, 4, 0, 0], [0, 4, 4, 0, 0, 0, 0, 0], [0, 4, 0, 0, 0, 4, 0, 0], [0, 5, 0, 0, 0, 5, 0, 0]],
+      [[0, 0, 2, 2, 2, 2, 0, 0], [0, 2, 2, 2, 2, 2, 2, 0], [0, 1, 1, 1, 1, 1, 1, 0], [0, 1, 6, 1, 1, 6, 1, 0], [0, 1, 1, 1, 1, 1, 1, 0], [0, 0, 3, 3, 3, 3, 0, 0], [0, 3, 3, 3, 3, 3, 3, 0], [0, 0, 3, 3, 3, 3, 0, 0], [0, 0, 4, 4, 4, 4, 0, 0], [0, 0, 0, 0, 4, 4, 0, 0], [0, 4, 0, 0, 0, 4, 0, 0], [0, 5, 0, 0, 0, 5, 0, 0]],
     ];
-    return rawDown.map(function(frame) {
-      return offscreen(SPRITE_W, SPRITE_H, function(c) {
+    return rawDown.map(function (frame) {
+      return offscreen(SPRITE_W, SPRITE_H, function (c) {
         for (var y = 0; y < SPRITE_H; y++) {
           for (var x = 0; x < SPRITE_W; x++) {
             var v = frame[y][x];
@@ -141,10 +141,10 @@
       name: 'RECEPTION',
       startX: 120, startY: 155,
       walls: [
-        { x: 0,   y: 0,   w: ROOM_W, h: 32 },
-        { x: 0,   y: 0,   w: 12,     h: ROOM_H },
-        { x: 228, y: 0,   w: 12,     h: 72 },
-        { x: 228, y: 112, w: 12,     h: ROOM_H - 112 },
+        { x: 0, y: 0, w: ROOM_W, h: 32 },
+        { x: 0, y: 0, w: 12, h: ROOM_H },
+        { x: 228, y: 0, w: 12, h: 72 },
+        { x: 228, y: 112, w: 12, h: ROOM_H - 112 },
       ],
       npc: { id: 'receptionist_npc', x: 120, y: 62, w: 12, h: 16, label: 'TALK TO SARAH', icon: '👩‍💼' },
       decorDoors: [
@@ -152,12 +152,12 @@
         { id: 'decor_door_conf', x: 32, y: 0, w: 32, h: 12, label: 'CONFERENCE ROOM', icon: '🔒' }
       ],
       objects: [
-        { id: 'r1_drawer',  x: 24,  y: 6,   w: 36, h: 24, label: 'SEARCH DRAWER', icon: '🗄️' },
-        { id: 'r1_books',   x: 74,  y: 6,   w: 36, h: 24, label: 'CHECK BOOKS',  icon: '📚' },
-        { id: 'r1_plant',   x: 184, y: 6,   w: 24, h: 26, label: 'CHECK PLANT',  icon: '🪴' },
-        { id: 'r1_cabinet', x: 24,  y: 125, w: 32, h: 40, label: 'SEARCH FILING',icon: '📁' },
-        { id: 'r1_coat',    x: 184, y: 130, w: 20, h: 36, label: 'INSPECT COAT', icon: '🧥' },
-        { id: 'r1_painting',x: 120, y: 4,   w: 32, h: 20, label: 'INSPECT ART',  icon: '🖼️' }
+        { id: 'r1_drawer', x: 24, y: 6, w: 36, h: 24, label: 'SEARCH DRAWER', icon: '🗄️' },
+        { id: 'r1_books', x: 74, y: 6, w: 36, h: 24, label: 'CHECK BOOKS', icon: '📚' },
+        { id: 'r1_plant', x: 184, y: 6, w: 24, h: 26, label: 'CHECK PLANT', icon: '🪴' },
+        { id: 'r1_cabinet', x: 24, y: 125, w: 32, h: 40, label: 'SEARCH FILING', icon: '📁' },
+        { id: 'r1_coat', x: 184, y: 130, w: 20, h: 36, label: 'INSPECT COAT', icon: '🧥' },
+        { id: 'r1_painting', x: 120, y: 4, w: 32, h: 20, label: 'INSPECT ART', icon: '🖼️' }
       ],
       doors: [
         { id: 'door_r1', x: 228, y: 72, w: 12, h: 40, targetRoom: 1, entryX: 28, entryY: 92, locked: true }
@@ -168,20 +168,20 @@
       name: 'OPEN OFFICE',
       startX: 28, startY: 92,
       walls: [
-        { x: 0,   y: 0,   w: ROOM_W, h: 32 },
-        { x: 0,   y: 0,   w: 12,     h: 72 },
-        { x: 0,   y: 112, w: 12,     h: ROOM_H - 112 },
-        { x: 228, y: 0,   w: 12,     h: 72 },
-        { x: 228, y: 112, w: 12,     h: ROOM_H - 112 },
+        { x: 0, y: 0, w: ROOM_W, h: 32 },
+        { x: 0, y: 0, w: 12, h: 72 },
+        { x: 0, y: 112, w: 12, h: ROOM_H - 112 },
+        { x: 228, y: 0, w: 12, h: 72 },
+        { x: 228, y: 112, w: 12, h: ROOM_H - 112 },
       ],
       npc: { id: 'worker_npc', x: 120, y: 55, w: 12, h: 16, label: 'TALK TO ALEX', icon: '💬' },
       objects: [
-        { id: 'desk1', x: 24,  y: 40,  w: 36, h: 28, label: 'LOGIN DESK #1', icon: '💻', mug: 'blue' },
-        { id: 'desk2', x: 70,  y: 40,  w: 36, h: 28, label: 'LOGIN DESK #2', icon: '💻', mug: 'white' },
-        { id: 'desk3', x: 24,  y: 115, w: 36, h: 28, label: 'LOGIN DESK #3', icon: '💻', mug: 'green' },
-        { id: 'desk4', x: 70,  y: 115, w: 36, h: 28, label: 'LOGIN DESK #4', icon: '💻', mug: 'yellow' },
-        { id: 'desk5', x: 140, y: 40,  w: 36, h: 28, label: 'LOGIN DESK #5', icon: '💻', mug: 'black' },
-        { id: 'desk6', x: 184, y: 40,  w: 36, h: 28, label: 'LOGIN DESK #6', icon: '💻', mug: 'red', isTarget: true },
+        { id: 'desk1', x: 24, y: 40, w: 36, h: 28, label: 'LOGIN DESK #1', icon: '💻', mug: 'blue' },
+        { id: 'desk2', x: 70, y: 40, w: 36, h: 28, label: 'LOGIN DESK #2', icon: '💻', mug: 'white' },
+        { id: 'desk3', x: 24, y: 115, w: 36, h: 28, label: 'LOGIN DESK #3', icon: '💻', mug: 'green' },
+        { id: 'desk4', x: 70, y: 115, w: 36, h: 28, label: 'LOGIN DESK #4', icon: '💻', mug: 'yellow' },
+        { id: 'desk5', x: 140, y: 40, w: 36, h: 28, label: 'LOGIN DESK #5', icon: '💻', mug: 'black' },
+        { id: 'desk6', x: 184, y: 40, w: 36, h: 28, label: 'LOGIN DESK #6', icon: '💻', mug: 'red', isTarget: true },
         { id: 'desk7', x: 140, y: 115, w: 36, h: 28, label: 'LOGIN DESK #7', icon: '💻', mug: 'purple' },
         { id: 'desk8', x: 184, y: 115, w: 36, h: 28, label: 'LOGIN DESK #8', icon: '💻', mug: 'orange' }
       ],
@@ -195,19 +195,19 @@
       name: 'CEO SUITE',
       startX: 28, startY: 92,
       walls: [
-        { x: 0,   y: 0,   w: ROOM_W, h: 32 },
-        { x: 0,   y: 0,   w: 12,     h: 72 },
-        { x: 0,   y: 112, w: 12,     h: ROOM_H - 112 },
-        { x: 228, y: 0,   w: 12,     h: ROOM_H }
+        { x: 0, y: 0, w: ROOM_W, h: 32 },
+        { x: 0, y: 0, w: 12, h: 72 },
+        { x: 0, y: 112, w: 12, h: ROOM_H - 112 },
+        { x: 228, y: 0, w: 12, h: ROOM_H }
       ],
       ceo: { id: 'ceo_npc', x: 110, y: 44, w: 12, h: 16, label: 'TALK TO CEO', icon: '👔' },
       objects: [
-        { id: 'r3_ceo_desk',  x: 85,  y: 54,  w: 50, h: 26, label: 'INSPECT CEO DESK', icon: '💼' },
-        { id: 'r3_bookshelf', x: 24,  y: 6,   w: 40, h: 26, label: 'CHECK CEO LIBRARY', icon: '📚' },
-        { id: 'r3_trophies',  x: 74,  y: 6,   w: 36, h: 22, label: 'INSPECT TROPHIES', icon: '🏆' },
-        { id: 'r3_plant_l',   x: 16,  y: 130, w: 20, h: 26, label: 'CHECK PLANT', icon: '🪴' },
-        { id: 'r3_plant_r',   x: 195, y: 130, w: 20, h: 26, label: 'CHECK PLANT', icon: '🪴' },
-        { id: 'vault_locker', x: 180, y: 40,  w: 40, h: 48, label: 'OPEN VAULT LOCKER', icon: '🔐' }
+        { id: 'r3_ceo_desk', x: 85, y: 54, w: 50, h: 26, label: 'INSPECT CEO DESK', icon: '💼' },
+        { id: 'r3_bookshelf', x: 24, y: 6, w: 40, h: 26, label: 'CHECK CEO LIBRARY', icon: '📚' },
+        { id: 'r3_trophies', x: 74, y: 6, w: 36, h: 22, label: 'INSPECT TROPHIES', icon: '🏆' },
+        { id: 'r3_plant_l', x: 16, y: 130, w: 20, h: 26, label: 'CHECK PLANT', icon: '🪴' },
+        { id: 'r3_plant_r', x: 195, y: 130, w: 20, h: 26, label: 'CHECK PLANT', icon: '🪴' },
+        { id: 'vault_locker', x: 180, y: 40, w: 40, h: 48, label: 'OPEN VAULT LOCKER', icon: '🔐' }
       ],
       doors: [
         { id: 'door_r3_back', x: 0, y: 72, w: 12, h: 40, targetRoom: 1, entryX: 214, entryY: 92, locked: false }
@@ -388,7 +388,7 @@
     c.fillStyle = P.woodLight; c.fillRect(0, 0, w, 2);
     // Drawer handles & panel lines
     c.fillStyle = P.woodDark; c.fillRect(2, 6, w - 4, 1); c.fillRect(2, 14, w - 4, 1);
-    c.fillStyle = P.metalBright; c.fillRect(w/2 - 4, 9, 8, 2); c.fillRect(w/2 - 4, 17, 8, 2);
+    c.fillStyle = P.metalBright; c.fillRect(w / 2 - 4, 9, 8, 2); c.fillRect(w / 2 - 4, 17, 8, 2);
     // Desk lamp & paper stack on top
     c.fillStyle = P.white; c.fillRect(4, 2, 6, 4);
     c.fillStyle = P.goldGlow; c.fillRect(w - 8, 2, 4, 3);
@@ -411,12 +411,12 @@
   }
 
   function drawObjPlant(c, w, h) {
-    c.fillStyle = P.plantPot; c.fillRect(w/2 - 7, h - 12, 14, 12);
-    c.fillStyle = P.woodDark; c.fillRect(w/2 - 6, h - 12, 12, 2);
+    c.fillStyle = P.plantPot; c.fillRect(w / 2 - 7, h - 12, 14, 12);
+    c.fillStyle = P.woodDark; c.fillRect(w / 2 - 6, h - 12, 12, 2);
     c.fillStyle = P.plantGreen;
-    c.beginPath(); c.arc(w/2, h/2 - 4, 11, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(w / 2, h / 2 - 4, 11, 0, Math.PI * 2); c.fill();
     c.fillStyle = '#22c55e'; // leaf highlights
-    c.beginPath(); c.arc(w/2 - 3, h/2 - 6, 5, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(w / 2 - 3, h / 2 - 6, 5, 0, Math.PI * 2); c.fill();
   }
 
   function drawObjCabinet(c, w, h) {
@@ -433,12 +433,12 @@
 
   function drawObjCoat(c, w, h) {
     // Wooden coat rack stand
-    c.fillStyle = P.woodDark; c.fillRect(w/2 - 1, 0, 2, h);
-    c.fillRect(w/2 - 6, h - 3, 12, 3);
+    c.fillStyle = P.woodDark; c.fillRect(w / 2 - 1, 0, 2, h);
+    c.fillRect(w / 2 - 6, h - 3, 12, 3);
     // Trench coat / suit jacket on hanger
-    c.fillStyle = '#334155'; c.fillRect(w/2 - 7, 8, 14, 20);
-    c.fillStyle = '#1e293b'; c.fillRect(w/2 - 5, 10, 10, 18);
-    c.fillStyle = P.white; c.fillRect(w/2 - 2, 10, 4, 4); // shirt collar
+    c.fillStyle = '#334155'; c.fillRect(w / 2 - 7, 8, 14, 20);
+    c.fillStyle = '#1e293b'; c.fillRect(w / 2 - 5, 10, 10, 18);
+    c.fillStyle = P.white; c.fillRect(w / 2 - 2, 10, 4, 4); // shirt collar
   }
 
   function drawObjPainting(c, w, h) {
@@ -498,14 +498,14 @@
   function drawObjVault(c, w, h) {
     c.fillStyle = P.metalDark; c.fillRect(0, 0, w, h);
     c.fillStyle = P.woodLight; c.fillRect(2, 2, w - 4, h - 4);
-    c.fillStyle = P.goldGlow; c.fillRect(w/2 - 6, h/2 - 6, 12, 12);
+    c.fillStyle = P.goldGlow; c.fillRect(w / 2 - 6, h / 2 - 6, 12, 12);
   }
 
   function drawObjCEODesk(c, w, h) {
     c.fillStyle = '#3a2612'; c.fillRect(0, 0, w, h);
     c.fillStyle = P.goldGlowDim; c.fillRect(0, 0, w, 2); c.fillRect(0, h - 2, w, 2);
-    c.fillStyle = P.metalDark; c.fillRect(w/2 - 10, 4, 20, 12);
-    c.fillStyle = P.screenBlue; c.fillRect(w/2 - 9, 5, 18, 10);
+    c.fillStyle = P.metalDark; c.fillRect(w / 2 - 10, 4, 20, 12);
+    c.fillStyle = P.screenBlue; c.fillRect(w / 2 - 9, 5, 18, 10);
     c.fillStyle = P.goldGlow; c.fillRect(6, 16, 8, 3);
     c.fillStyle = P.white; c.fillRect(w - 12, 14, 6, 4);
   }
@@ -542,8 +542,8 @@
   function prerenderAll() {
     playerSpriteCache = buildCharFrames(P.shirtIntern, P.hairIntern, '#1e293b');
     workerSpriteCache = buildCharFrames(P.shirtWorker, P.hairWorker, '#334155');
-    ceoSpriteCache    = buildCharFrames(P.suitCEO, P.hairCEO, '#0f172a');
-    recepSpriteCache  = buildCharFrames(P.shirtRecep, P.hairRecep, '#475569');
+    ceoSpriteCache = buildCharFrames(P.suitCEO, P.hairCEO, '#0f172a');
+    recepSpriteCache = buildCharFrames(P.shirtRecep, P.hairRecep, '#475569');
 
     for (var ri = 0; ri < ROOMS.length; ri++) {
       roomBgCache.push(prerenderRoomBg(ri));
@@ -685,7 +685,7 @@
     $modalClose.addEventListener('click', closeModal);
     $modalSubmit.addEventListener('click', submitModalInput);
 
-    $modalInput.addEventListener('keydown', function(e) {
+    $modalInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') submitModalInput();
     });
 
@@ -720,10 +720,10 @@
   function readKeyboard() {
     if (joyTouchId !== null) return;
     var kx = 0, ky = 0;
-    if (keys['arrowleft']  || keys['a']) kx -= 1;
+    if (keys['arrowleft'] || keys['a']) kx -= 1;
     if (keys['arrowright'] || keys['d']) kx += 1;
-    if (keys['arrowup']    || keys['w']) ky -= 1;
-    if (keys['arrowdown']  || keys['s']) ky += 1;
+    if (keys['arrowup'] || keys['w']) ky -= 1;
+    if (keys['arrowdown'] || keys['s']) ky += 1;
     if (kx !== 0 && ky !== 0) { kx /= Math.SQRT2; ky /= Math.SQRT2; }
     joyDX = kx; joyDY = ky;
   }
@@ -1151,36 +1151,36 @@
   }
 
   function init() {
-    canvas        = document.getElementById('game-canvas');
-    ctx           = canvas.getContext('2d');
-    $timer        = document.getElementById('timer');
-    $roomLabel    = document.getElementById('room-label');
+    canvas = document.getElementById('game-canvas');
+    ctx = canvas.getContext('2d');
+    $timer = document.getElementById('timer');
+    $roomLabel = document.getElementById('room-label');
     $keycardBadge = document.getElementById('keycard-badge');
-    $actionBtn    = document.getElementById('action-btn');
-    $actionLabel  = document.getElementById('action-label');
-    $actionIcon   = document.getElementById('action-icon');
-    $joystick     = document.getElementById('joystick');
-    $joyKnob      = document.getElementById('joystick-knob');
+    $actionBtn = document.getElementById('action-btn');
+    $actionLabel = document.getElementById('action-label');
+    $actionIcon = document.getElementById('action-icon');
+    $joystick = document.getElementById('joystick');
+    $joyKnob = document.getElementById('joystick-knob');
     $modalOverlay = document.getElementById('modal-overlay');
-    $modalTitle   = document.getElementById('modal-title');
-    $modalText    = document.getElementById('modal-text');
-    $modalIcon    = document.getElementById('modal-icon');
-    $modalClose   = document.getElementById('modal-close');
-    $modalSubmit  = document.getElementById('modal-submit');
-    $modalInput   = document.getElementById('modal-input');
+    $modalTitle = document.getElementById('modal-title');
+    $modalText = document.getElementById('modal-text');
+    $modalIcon = document.getElementById('modal-icon');
+    $modalClose = document.getElementById('modal-close');
+    $modalSubmit = document.getElementById('modal-submit');
+    $modalInput = document.getElementById('modal-input');
     $modalInputContainer = document.getElementById('modal-input-container');
-    $modalError   = document.getElementById('modal-error');
-    $startScreen  = document.getElementById('start-screen');
-    $startBtn     = document.getElementById('start-btn');
-    $endScreen    = document.getElementById('end-screen');
-    $endTitle     = document.getElementById('end-title');
-    $endTime      = document.getElementById('end-time');
-    $endDiscount  = document.getElementById('end-discount-label');
-    $endCode      = document.getElementById('end-code');
-    $endReplay    = document.getElementById('end-replay-btn');
-    $confetti     = document.getElementById('confetti-canvas');
-    cctx          = $confetti.getContext('2d');
-    $soundToggle  = document.getElementById('sound-toggle');
+    $modalError = document.getElementById('modal-error');
+    $startScreen = document.getElementById('start-screen');
+    $startBtn = document.getElementById('start-btn');
+    $endScreen = document.getElementById('end-screen');
+    $endTitle = document.getElementById('end-title');
+    $endTime = document.getElementById('end-time');
+    $endDiscount = document.getElementById('end-discount-label');
+    $endCode = document.getElementById('end-code');
+    $endReplay = document.getElementById('end-replay-btn');
+    $confetti = document.getElementById('confetti-canvas');
+    cctx = $confetti.getContext('2d');
+    $soundToggle = document.getElementById('sound-toggle');
 
     window.addEventListener('resize', resize);
     window.addEventListener('orientationchange', function () { setTimeout(resize, 150); });
