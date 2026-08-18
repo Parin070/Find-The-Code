@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#0f172a"/>
+  
+  <!-- Outer Keycard Border / Shadow -->
+  <rect x="5" y="8" width="22" height="16" rx="2" fill="#854d0e"/>
+  
+  <!-- Main Keycard Body -->
+  <rect x="5" y="7" width="22" height="16" rx="2" fill="#ffc83b"/>
+  
+  <!-- Magnetic Stripe -->
+  <rect x="5" y="11" width="22" height="4" fill="#1e293b"/>
+  
+  <!-- Smart Chip -->
+  <rect x="8" y="17" width="5" height="4" rx="1" fill="#10b981"/>
+  <rect x="9" y="18" width="3" height="2" fill="#a7f3d0"/>
+  
+  <!-- Embossed Details -->
+  <rect x="15" y="17" width="8" height="1.5" fill="#854d0e"/>
+  <rect x="15" y="20" width="5" height="1.5" fill="#854d0e"/>
+</svg>
