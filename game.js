@@ -152,12 +152,12 @@
         { id: 'decor_door_conf', x: 32, y: 0, w: 32, h: 12, label: 'CONFERENCE ROOM', icon: '🔒' }
       ],
       objects: [
-        { id: 'r1_drawer',  x: 24,  y: 38,  w: 36, h: 24, label: 'SEARCH DRAWER', icon: '🗄️' },
-        { id: 'r1_books',   x: 74,  y: 36,  w: 36, h: 40, label: 'CHECK BOOKS',  icon: '📚' },
-        { id: 'r1_plant',   x: 180, y: 38,  w: 24, h: 32, label: 'CHECK PLANT',  icon: '🪴' },
+        { id: 'r1_drawer',  x: 24,  y: 6,   w: 36, h: 24, label: 'SEARCH DRAWER', icon: '🗄️' },
+        { id: 'r1_books',   x: 74,  y: 6,   w: 36, h: 24, label: 'CHECK BOOKS',  icon: '📚' },
+        { id: 'r1_plant',   x: 184, y: 6,   w: 24, h: 26, label: 'CHECK PLANT',  icon: '🪴' },
         { id: 'r1_cabinet', x: 24,  y: 125, w: 32, h: 40, label: 'SEARCH FILING',icon: '📁' },
         { id: 'r1_coat',    x: 184, y: 130, w: 20, h: 36, label: 'INSPECT COAT', icon: '🧥' },
-        { id: 'r1_painting',x: 120, y: 36,  w: 36, h: 28, label: 'INSPECT ART',  icon: '🖼️' }
+        { id: 'r1_painting',x: 120, y: 4,   w: 32, h: 20, label: 'INSPECT ART',  icon: '🖼️' }
       ],
       doors: [
         { id: 'door_r1', x: 228, y: 72, w: 12, h: 40, targetRoom: 1, entryX: 28, entryY: 92, locked: true }
@@ -200,9 +200,14 @@
         { x: 0,   y: 112, w: 12,     h: ROOM_H - 112 },
         { x: 228, y: 0,   w: 12,     h: ROOM_H }
       ],
-      ceo: { id: 'ceo_npc', x: 150, y: 60, w: 12, h: 16, label: 'TALK TO CEO', icon: '👔' },
+      ceo: { id: 'ceo_npc', x: 110, y: 44, w: 12, h: 16, label: 'TALK TO CEO', icon: '👔' },
       objects: [
-        { id: 'vault_locker', x: 180, y: 40, w: 40, h: 48, label: 'OPEN VAULT LOCKER', icon: '🔐' }
+        { id: 'r3_ceo_desk',  x: 85,  y: 54,  w: 50, h: 26, label: 'INSPECT CEO DESK', icon: '💼' },
+        { id: 'r3_bookshelf', x: 24,  y: 6,   w: 40, h: 26, label: 'CHECK CEO LIBRARY', icon: '📚' },
+        { id: 'r3_trophies',  x: 74,  y: 6,   w: 36, h: 22, label: 'INSPECT TROPHIES', icon: '🏆' },
+        { id: 'r3_plant_l',   x: 16,  y: 130, w: 20, h: 26, label: 'CHECK PLANT', icon: '🪴' },
+        { id: 'r3_plant_r',   x: 195, y: 130, w: 20, h: 26, label: 'CHECK PLANT', icon: '🪴' },
+        { id: 'vault_locker', x: 180, y: 40,  w: 40, h: 48, label: 'OPEN VAULT LOCKER', icon: '🔐' }
       ],
       doors: [
         { id: 'door_r3_back', x: 0, y: 72, w: 12, h: 40, targetRoom: 1, entryX: 214, entryY: 92, locked: false }
@@ -496,9 +501,30 @@
     c.fillStyle = P.goldGlow; c.fillRect(w/2 - 6, h/2 - 6, 12, 12);
   }
 
+  function drawObjCEODesk(c, w, h) {
+    c.fillStyle = '#3a2612'; c.fillRect(0, 0, w, h);
+    c.fillStyle = P.goldGlowDim; c.fillRect(0, 0, w, 2); c.fillRect(0, h - 2, w, 2);
+    c.fillStyle = P.metalDark; c.fillRect(w/2 - 10, 4, 20, 12);
+    c.fillStyle = P.screenBlue; c.fillRect(w/2 - 9, 5, 18, 10);
+    c.fillStyle = P.goldGlow; c.fillRect(6, 16, 8, 3);
+    c.fillStyle = P.white; c.fillRect(w - 12, 14, 6, 4);
+  }
+
+  function drawObjTrophies(c, w, h) {
+    c.fillStyle = P.woodDark; c.fillRect(0, h - 4, w, 4);
+    c.fillStyle = P.woodLight; c.fillRect(0, h - 4, w, 1);
+    c.fillStyle = P.goldGlow;
+    c.fillRect(4, 4, 6, 8); c.fillRect(5, 12, 4, 4);
+    c.fillRect(16, 2, 8, 10); c.fillRect(18, 12, 4, 4);
+    c.fillStyle = '#b45309'; c.fillRect(28, 4, 6, 12);
+    c.fillStyle = P.goldGlow; c.fillRect(29, 5, 4, 10);
+  }
+
   var OBJ_DRAWS = {
     r1_drawer: drawObjDrawer, r1_books: drawObjBooks, r1_plant: drawObjPlant,
     r1_cabinet: drawObjCabinet, r1_coat: drawObjCoat, r1_painting: drawObjPainting,
+    r3_ceo_desk: drawObjCEODesk, r3_bookshelf: drawObjBooks, r3_trophies: drawObjTrophies,
+    r3_plant_l: drawObjPlant, r3_plant_r: drawObjPlant,
     vault_locker: drawObjVault
   };
 
@@ -812,9 +838,21 @@
       }
     }
 
-    // --- Room 3 Back Door & CEO / Vault ---
+    // --- Room 3 Back Door, CEO Desk, Library, Trophies & Vault ---
     else if (obj.id === 'door_r3_back') {
       startTransition(ROOMS[2].doors[0]);
+    } else if (obj.id === 'r3_ceo_desk') {
+      showModal('CEO EXECUTIVE DESK', 'Handcrafted mahogany desk with a brass nameplate, encrypted workstation terminal, and gold trim.', '💼');
+      playSound('interact');
+    } else if (obj.id === 'r3_bookshelf') {
+      showModal('CEO EXECUTIVE LIBRARY', 'Leather-bound volumes on global corporate strategy, patent law, and tech innovation.', '📚');
+      playSound('interact');
+    } else if (obj.id === 'r3_trophies') {
+      showModal('TROPHY & AWARD DISPLAY', 'Golden Industry Leader cups, Founder awards, and Tech Excellence plaques from 2020 to 2026.', '🏆');
+      playSound('interact');
+    } else if (obj.id === 'r3_plant_l' || obj.id === 'r3_plant_r') {
+      showModal('EXECUTIVE PLANT', 'Lush office ficus in a polished mahogany planter.', '🪴');
+      playSound('interact');
     } else if (obj.id === 'ceo_npc') {
       GS.activePrompt = 'CEO_PASSWORD';
       showModal('CEO CHIEF EXECUTIVE', '"Welcome, Intern! State the answer to the workstation riddle as the Security Password to unlock the Vault Locker:"', '👔');
