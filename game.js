@@ -29,7 +29,13 @@
     { q: "I am a First-In, First-Out (FIFO) linear data structure. What am I?", a: "QUEUE" },
     { q: "I am a Last-In, First-Out (LIFO) linear data structure. What am I?", a: "STACK" },
     { q: "I am a software glitch named after a moth found in a Harvard computer relay in 1947. What am I?", a: "BUG" },
-    { q: "I am the core process of an operating system that manages memory, CPU, and hardware access. What am I?", a: "KERNEL" }
+    { q: "I am the core process of an operating system that manages memory, CPU, and hardware access. What am I?", a: "KERNEL" },
+    { q: "I am temporary memory, lost when power turns off. What am I?", a: "RAM" },
+    { q: "I am permanent storage, keeps data even without power. What am I?", a: "HARD DRIVE", altA: "SSD" },
+    { q: "I am a set of rules a computer follows to solve a problem. What am I?", a: "ALGORITHM" },
+    { q: "I am the language of 0s and 1s that computers understand. What am I?", a: "BINARY" },
+    { q: "I am software that manages all other software and hardware on a computer. What am I?", a: "OPERATING SYSTEM", altA: "OS" },
+    { q: "I am a small piece of code with a name, used to perform a task, can be called again and again. What am I?", a: "FUNCTION" }
   ];
 
   const R1_OBJECT_NAMES = {
@@ -882,7 +888,13 @@
         playSound('error');
       }
     } else if (GS.activePrompt === 'CEO_PASSWORD') {
-      if (inputVal === sessionData.csQuestion.a.toUpperCase()) {
+      var targetA = sessionData.csQuestion.a.toUpperCase();
+      var altA = sessionData.csQuestion.altA ? sessionData.csQuestion.altA.toUpperCase() : null;
+      var cleanInput = inputVal.replace(/[\s\-_]/g, '');
+      var cleanTarget = targetA.replace(/[\s\-_]/g, '');
+      var cleanAlt = altA ? altA.replace(/[\s\-_]/g, '') : null;
+
+      if (inputVal === targetA || cleanInput === cleanTarget || (altA && (inputVal === altA || cleanInput === cleanAlt))) {
         closeModal();
         finishGame();
       } else {
