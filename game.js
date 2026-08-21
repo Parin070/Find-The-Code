@@ -18,9 +18,9 @@
   const TIMER_THRESHOLD = 90; // 1:30
   const MAX_CONFETTI = 40;
 
-  // Placeholder Discount Codes (easily editable)
-  const DISCOUNT_CODE_20 = 'AIWILLTAKEOVER20';
-  const DISCOUNT_CODE_10 = 'AIWILLTAKEOVER10';
+  // Classified Clearance File Codes (under 1:30 vs over 1:30)
+  const CLEARANCE_CODE_FAST = 'DOSSIER-EXEC-99';
+  const CLEARANCE_CODE_SLOW = 'CLASSIFIED-DOC-50';
 
   // Computer Science / Tech Riddles Pool for Room 2 Target Workstation
   const CS_QUESTIONS = [
@@ -902,8 +902,8 @@
     var under = GS.finalTime <= TIMER_THRESHOLD;
 
     $endTime.textContent = 'TIME ELAPSED: ' + timeStr;
-    $endDiscount.textContent = under ? '20% DISCOUNT UNLOCKED' : '10% DISCOUNT UNLOCKED';
-    $endCode.textContent = under ? DISCOUNT_CODE_20 : DISCOUNT_CODE_10;
+    $endDiscount.textContent = under ? 'LEVEL 5 EXECUTIVE CLEARANCE' : 'LEVEL 3 CLASSIFIED CLEARANCE';
+    $endCode.textContent = under ? CLEARANCE_CODE_FAST : CLEARANCE_CODE_SLOW;
 
     $endScreen.classList.remove('hidden');
     spawnConfetti();

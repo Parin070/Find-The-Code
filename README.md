@@ -4,7 +4,7 @@
 
 ## Story & Mission
 
-You are a newly hired intern on your first day at Corporate HQ. An urgent executive memo directs you to retrieve the CEO's secret access code before the deadline!
+You are a newly hired intern on your first day at Corporate HQ. An urgent executive memo directs you to retrieve a confidential executive dossier from the vault locker before the deadline!
 
 ### Mission Flow
 
@@ -22,31 +22,31 @@ You are a newly hired intern on your first day at Corporate HQ. An urgent execut
    - **Random Tech Riddle Pool**: Accessing the target computer opens a confidential file displaying 1 of 6 randomized Computer Science / Tech riddles.
 4. **Room 3: CEO Private Suite**
    - **Two-Way Backtracking**: Doorways remain unlocked, allowing players to walk back to earlier rooms if they missed an item or clue.
-   - **CEO NPC & Vault Locker**: Speak with the CEO or inspect the Executive Vault Locker, enter the answer to the workstation riddle, and unlock the secret discount code!
+   - **CEO NPC & Vault Locker**: Speak with the CEO or inspect the Executive Vault Locker, enter the answer to the workstation riddle, and unlock the classified files!
 
-## Reward Structure
+## Executive Clearance Levels
 
-| Finish Time | Reward Level |
+| Finish Time | Clearance Level Unlocked |
 |---|---|
-| ≤ 1:30 | **Tier 1 Discount Code (Fast Finish)** |
-| > 1:30 | **Tier 2 Discount Code (Standard Finish)** |
+| ≤ 1:30 | **Level 5 Executive Clearance (`DOSSIER-EXEC-99`)** |
+| > 1:30 | **Level 3 Classified Clearance (`CLASSIFIED-DOC-50`)** |
 
 ## Visual Style
 
 - **Stylized Office Pixel Art** — Warm wood furniture, navy carpet tiles, executive red rugs, and clean office clutter.
 - **Solid Pixel Objects & Faint Border Glow** — Interactive objects remain crisp solid pixel art sprites with a soft outer glowing border outline for intuitive discovery.
-- **Mobile-First Responsive** — Virtual joystick (bottom-left), contextual action button (bottom-right), HUD timer, and inventory badge indicator for the keycard. Supports both **portrait and landscape** viewports.
+- **Mobile-First Responsive** — Virtual joystick (bottom-left), contextual action button (bottom-right), HUD timer, and inventory badge indicator for the keycard. Supports both **portrait and landscape** viewports with responsive font scaling and touch support.
 
-## Customizing Discount Codes
+## Customizing Clearance Codes
 
 Open `game.js` and locate these lines near the top:
 
 ```js
-const DISCOUNT_CODE_20 = 'YOUR_20_PERCENT_CODE';
-const DISCOUNT_CODE_10 = 'YOUR_10_PERCENT_CODE';
+const CLEARANCE_CODE_FAST = 'DOSSIER-EXEC-99';
+const CLEARANCE_CODE_SLOW = 'CLASSIFIED-DOC-50';
 ```
 
-Replace the placeholder strings with your actual booth promo codes.
+Replace the placeholder strings with your custom clearance/event codes.
 
 ## Running Locally
 
